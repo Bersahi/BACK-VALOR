@@ -1,0 +1,95 @@
+╔════════════════════════════════════════════════════════════╗
+║        VALOREXPRESS - GUÍA RÁPIDA (SOLO 3 COMANDOS)       ║
+╚════════════════════════════════════════════════════════════╝
+
+
+🚀 INICIAR SISTEMA
+═══════════════════════════════════════════════════════════
+
+   Ejecuta:  iniciar-proyecto.bat
+
+   Esto te mostrará un menú con opciones:
+   [1] Iniciar BD + Backend (recomendado)
+   [2] Solo BD
+   [3] Salir
+
+
+🛑 DETENER SISTEMA
+═══════════════════════════════════════════════════════════
+
+   Ejecuta:  detener-proyecto.bat
+
+   Detiene todo pero mantiene los datos
+
+
+🔄 REINICIAR DESDE CERO
+═══════════════════════════════════════════════════════════
+
+   Ejecuta:  reiniciar-db.bat
+
+   ⚠️  Borra TODOS los datos y vuelve al estado inicial
+
+
+═══════════════════════════════════════════════════════════
+
+💡 COMANDOS ÚTILES DE DOCKER/MYSQL:
+
+   # Ver contenedores corriendo
+   docker ps
+
+   # Ver logs de MySQL
+   docker logs back-valor-mysql
+
+   # Conectar a MySQL CLI
+   docker exec -it back-valor-mysql mysql -u admin -padmin123 -D valorexpress
+
+   # Ver todos los envíos
+   docker exec back-valor-mysql mysql -u admin -padmin123 -D valorexpress -e "SELECT * FROM envios;"
+
+   # Ver todas las tablas
+   docker exec back-valor-mysql mysql -u admin -padmin123 -D valorexpress -e "SHOW TABLES;"
+
+   # Describir tabla
+   docker exec back-valor-mysql mysql -u admin -padmin123 -D valorexpress -e "DESCRIBE envios;"
+
+
+═══════════════════════════════════════════════════════════
+
+🔑 CREDENCIALES:
+
+   Host:     localhost
+   Puerto:   3306
+   Usuario:  admin
+   Password: admin123
+   Database: valorexpress
+
+
+═══════════════════════════════════════════════════════════
+
+🌐 BACKEND API:
+
+   URL: http://localhost:3000
+
+   GET    /envios          - Listar todos
+   GET    /envios/:id      - Obtener uno
+   POST   /envios          - Crear nuevo
+   PUT    /envios/:id      - Actualizar
+   DELETE /envios/:id      - Eliminar
+
+
+═══════════════════════════════════════════════════════════
+
+📚 MÁS INFORMACIÓN:
+
+   LEEME.txt              - Resumen completo
+   MIGRACION_MYSQL.md     - Detalles técnicos MySQL
+   ESTRUCTURA_BD.md       - Estructura de 25 tablas
+   README_DOCKER.md       - Guía detallada Docker
+
+
+═══════════════════════════════════════════════════════════
+
+✨ ¡ESO ES TODO! Solo 3 archivos .bat para todo.
+
+═══════════════════════════════════════════════════════════
+

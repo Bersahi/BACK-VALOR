@@ -1,0 +1,60 @@
+╔══════════════════════════════════════════════════════════════╗
+║     SISTEMA DE ENVIOS - INICIO RAPIDO (MySQL)                ║
+╚══════════════════════════════════════════════════════════════╝
+
+📦 ARCHIVOS .BAT DISPONIBLES (Simplificado):
+
+1. iniciar-proyecto.bat      ⭐ PRINCIPAL
+   └─> Script interactivo con menú de opciones
+   └─> Levanta BD y opcionalmente el backend
+
+2. detener-proyecto.bat
+   └─> Detiene todos los servicios
+
+3. reiniciar-db.bat
+   └─> Reinicia la BD desde cero (BORRA DATOS)
+
+════════════════════════════════════════════════════════════════
+
+🚀 PARA EMPEZAR:
+
+   1. Asegúrate de que Docker Desktop esté corriendo
+   2. Doble clic en: iniciar-proyecto.bat
+   3. Espera 1-2 minutos
+   4. ¡Listo para desarrollar!
+
+════════════════════════════════════════════════════════════════
+
+🔗 CREDENCIALES DE LA BASE DE DATOS:
+
+   Host:     localhost
+   Puerto:   3306
+   Usuario:  admin
+   Password: admin123
+   Database: valorexpress
+
+════════════════════════════════════════════════════════════════
+
+📝 BACKEND API:
+
+   URL: http://localhost:3000
+   
+   Endpoints:
+   - GET    /envios          (Listar todos)
+   - GET    /envios/:id      (Obtener por ID)
+   - POST   /envios          (Crear nuevo)
+   - PUT    /envios/:id      (Actualizar)
+   - DELETE /envios/:id      (Eliminar)
+
+════════════════════════════════════════════════════════════════
+
+💡 TIPS:
+
+   - La primera vez es rápida (30-60 segundos)
+   - Los datos se mantienen entre reinicios
+   - MySQL es más ligero que Oracle
+   - Usa reiniciar-db.bat solo si necesitas reset
+   - Revisa README_DOCKER.md para más detalles
+
+════════════════════════════════════════════════════════════════
+

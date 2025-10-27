@@ -1,0 +1,170 @@
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║       SISTEMA DE ENVIOS - BASE DE DATOS MYSQL DOCKERIZADA   ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+
+🎯 OBJETIVO CUMPLIDO:
+
+   ✅ Base de datos MySQL dockerizada (más ligera y rápida)
+   ✅ Solo levantar el contenedor e incluye todos los registros
+   ✅ Scripts .BAT para ejecutar la rutina correcta
+   ✅ Migración completa de Oracle a MySQL
+
+
+════════════════════════════════════════════════════════════════
+
+🚀 INICIO RÁPIDO (3 PASOS):
+
+   1️⃣  Asegúrate de tener Docker Desktop corriendo
+   
+   2️⃣  Haz doble clic en: iniciar-proyecto.bat
+   
+   3️⃣  Espera 1-2 minutos... ¡LISTO! 🎉
+
+
+════════════════════════════════════════════════════════════════
+
+📦 ARCHIVOS .BAT (Solo 3 - Simplificados):
+
+   iniciar-proyecto.bat      ⭐ PRINCIPAL
+   └─> Script interactivo con menú de opciones
+   └─> Levanta BD y opcionalmente el backend
+   
+   detener-proyecto.bat
+   └─> Detiene todos los servicios
+   
+   reiniciar-db.bat
+   └─> Reinicia BD desde cero (BORRA DATOS)
+
+
+════════════════════════════════════════════════════════════════
+
+📚 QUÉ INCLUYE LA BASE DE DATOS:
+
+   ✅ Usuario ADMIN creado automáticamente
+   ✅ Tabla ENVIOS con toda su estructura
+   ✅ 5 registros de prueba ya incluidos:
+      • Juan Pérez (TRACK001) - PENDIENTE
+      • María García (TRACK002) - EN_TRANSITO
+      • Carlos López (TRACK003) - ENTREGADO
+      • Ana Martínez (TRACK004) - PENDIENTE
+      • Pedro Sánchez (TRACK005) - EN_TRANSITO
+
+
+════════════════════════════════════════════════════════════════
+
+🔑 CREDENCIALES:
+
+   Host:     localhost
+   Puerto:   3306
+   Usuario:  admin
+   Password: admin123
+   Database: valorexpress
+
+
+════════════════════════════════════════════════════════════════
+
+🌐 BACKEND API:
+
+   URL: http://localhost:3000
+   
+   Endpoints:
+   • GET    /envios          → Listar todos
+   • GET    /envios/:id      → Obtener uno
+   • POST   /envios          → Crear nuevo
+   • PUT    /envios/:id      → Actualizar
+   • DELETE /envios/:id      → Eliminar
+
+
+════════════════════════════════════════════════════════════════
+
+📖 DOCUMENTACIÓN COMPLETA:
+
+   README_DOCKER.md       → Guía detallada
+   INICIO_RAPIDO.txt      → Guía visual rápida
+   RESUMEN_ARCHIVOS.md    → Lista de todos los archivos
+
+
+════════════════════════════════════════════════════════════════
+
+❓ PREGUNTAS FRECUENTES:
+
+   Q: ¿La primera vez tarda mucho?
+   A: No, solo 30-60 segundos (MySQL es mucho más ligero que Oracle)
+   
+   Q: ¿Los datos se borran al apagar?
+   A: NO, se mantienen gracias a volúmenes de Docker
+   
+   Q: ¿Cómo reseteo todo?
+   A: Ejecuta reiniciar-db.bat
+   
+   Q: ¿Puedo usar SQL Developer?
+   A: ¡Sí! Usa las credenciales de arriba
+   
+   Q: ¿Funciona sin internet?
+   A: Sí, después de la primera vez
+
+
+════════════════════════════════════════════════════════════════
+
+🎓 CASOS DE USO:
+
+   DESARROLLO COMPLETO:
+   → Ejecuta: iniciar-proyecto.bat
+   → Trabaja normalmente
+   → Al terminar: detener-proyecto.bat
+   
+   SOLO BASE DE DATOS:
+   → Ejecuta: iniciar-solo-db.bat
+   → Usa SQL Developer, DBeaver, etc.
+   → Al terminar: detener-proyecto.bat
+   
+   VERIFICAR QUE TODO FUNCIONA:
+   → Ejecuta: probar-conexion.bat
+   → Ejecuta: ver-datos.bat
+   → Ejecuta: probar-backend.bat
+   
+   EMPEZAR DE CERO:
+   → Ejecuta: reiniciar-db.bat
+   → Confirma con "S"
+   → Espera 1-2 minutos
+
+
+════════════════════════════════════════════════════════════════
+
+⚡ COMANDOS ÚTILES:
+
+   docker ps
+   └─> Ver contenedores corriendo
+   
+   docker logs back-valor-oracle
+   └─> Ver logs de la base de datos
+   
+   docker exec -it back-valor-oracle bash
+   └─> Entrar al contenedor
+
+
+════════════════════════════════════════════════════════════════
+
+✅ RESUMEN:
+
+   • TODO está dockerizado y listo para usar
+   • UN SOLO CLICK y todo funciona
+   • Los DATOS están incluidos automáticamente
+   • PORTÁTIL: funciona en cualquier máquina con Docker
+   • DOCUMENTADO: guías y ejemplos completos
+
+
+════════════════════════════════════════════════════════════════
+
+🎉 ¡DISFRUTA TU NUEVO SISTEMA DOCKERIZADO!
+
+   Ejecuta: iniciar-proyecto.bat
+   
+   Y comienza a desarrollar inmediatamente 🚀
+
+
+════════════════════════════════════════════════════════════════
+
