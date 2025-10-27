@@ -22,14 +22,14 @@ echo.
 
 REM Detener contenedores y ELIMINAR volumenes (reset completo)
 echo [2/4] Limpiando todo (contenedores + volumenes)...
-docker-compose down -v >nul 2>&1
+docker-compose -f docker\docker-compose.yml down -v >nul 2>&1
 echo     OK - Todo limpio, empezando desde cero.
 echo.
 
 REM Levantar el contenedor de MySQL
 echo [3/4] Levantando MySQL 8.0...
 echo     (Esto ejecutara automaticamente los scripts SQL)
-docker-compose up -d
+docker-compose -f docker\docker-compose.yml up -d
 if errorlevel 1 (
     echo     ERROR: No se pudo iniciar el contenedor.
     pause
@@ -78,10 +78,11 @@ echo Comandos utiles:
 echo    Ver tablas:  docker exec back-valor-mysql mysql -u admin -padmin123 -D valorexpress -e "SHOW TABLES;"
 echo    Ver envios:  docker exec back-valor-mysql mysql -u admin -padmin123 -D valorexpress -e "SELECT * FROM envios;"
 echo    Ver logs:    docker logs back-valor-mysql
-echo    Detener:     detener-proyecto.bat
+echo    Detener:     detener.bat
 echo.
 echo NOTA: Este script siempre recrea la BD desde cero con datos frescos.
 echo.
 echo ============================================================
 echo.
 pause
+

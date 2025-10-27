@@ -8,7 +8,7 @@ echo ============================================================
 echo.
 
 echo Deteniendo contenedores de Docker...
-docker-compose down
+docker-compose -f docker\docker-compose.yml down
 
 if errorlevel 1 (
     echo.
@@ -20,8 +20,9 @@ if errorlevel 1 (
     echo.
     echo Los datos se mantienen en volumenes de Docker.
     echo Para eliminar TODO (incluyendo datos):
-    echo    docker-compose down -v
+    echo    docker-compose -f docker\docker-compose.yml down -v
 )
 
 echo.
 pause
+
