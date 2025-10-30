@@ -64,7 +64,7 @@ echo ============================================================
 echo.
 echo MySQL corriendo en:
 echo    Host:     localhost
-echo    Puerto:   3307
+echo    Puerto:   3308
 echo    Usuario:  admin
 echo    Password: admin123
 echo    Database: valorexpress
