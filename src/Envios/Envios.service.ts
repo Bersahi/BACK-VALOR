@@ -6,6 +6,8 @@ import { Direcciones } from '../Direcciones/Direcciones.entity';
 import { Paquetes } from '../Paquetes/Paquetes.entity';
 import { DireccionesService } from '../Direcciones/Direcciones.service';
 import { PaquetesService } from '../Paquetes/Paquetes.service';
+import { NotificacionesService } from '../Notificaciones/Notificaciones.service';
+import { NotificacionesGateway } from '../Notificaciones/Notificaciones.gateway';
 import { CreateEnvioCompletoDto } from './dto/create-envio-completo.dto';
 
 @Injectable()
@@ -15,6 +17,8 @@ export class EnviosService {
     private readonly enviosRepository: Repository<Envios>,
     private readonly direccionesService: DireccionesService,
     private readonly paquetesService: PaquetesService,
+    private readonly notificacionesService: NotificacionesService,
+    private readonly notificacionesGateway: NotificacionesGateway,
   ) {}
 
   async findAll(): Promise<Envios[]> {
@@ -36,8 +40,83 @@ export class EnviosService {
 
   async update(id: number, data: Partial<Envios>): Promise<Envios> {
     const envio = await this.findOne(id);
+    const estadoAnterior = envio.estado;
+    
     Object.assign(envio, data);
-    return this.enviosRepository.save(envio);
+    const envioActualizado = await this.enviosRepository.save(envio);
+    
+    // Si el estado cambió, enviar notificación
+    if (data.estado && data.estado !== estadoAnterior) {
+      await this.notificarCambioEstado(envioActualizado, estadoAnterior);
+    }
+    
+    return envioActualizado;
+  }
+
+  /**
+   * Notifica al cliente sobre un cambio de estado del envío
+   */
+  private async notificarCambioEstado(envio: Envios, estadoAnterior: string): Promise<void> {
+    try {
+      // Mensajes según el nuevo estado
+      const mensajes: Record<string, string> = {
+        'registrado': '📦 Tu envío ha sido registrado exitosamente',
+        'en_transito': '🚚 Tu envío está en camino',
+        'en_almacen': '📍 Tu envío llegó al almacén',
+        'en_reparto': '🏃 Tu envío está en reparto, ¡pronto llegará!',
+        'entregado': '✅ Tu envío ha sido entregado exitosamente',
+        'cancelado': '❌ Tu envío ha sido cancelado',
+        'devuelto': '↩️ Tu envío está siendo devuelto',
+      };
+
+      const mensaje = mensajes[envio.estado] || `Tu envío cambió de estado: ${envio.estado}`;
+      const destinatario = envio.remitenteEmail || envio.remitenteTelefono || 'Cliente';
+
+      // Determinar si el cliente está conectado
+      const clienteConectado = envio.clienteId ? 
+        this.notificacionesGateway.isClienteConectado(envio.clienteId) : false;
+
+      // 1. Guardar notificación en BD (historial para soporte)
+      const notificacion = await this.notificacionesService.create({
+        envioId: envio.id,
+        clienteId: envio.clienteId,
+        tipo: envio.estado === 'entregado' ? 'success' : 'info',
+        titulo: 'Estado de envío actualizado',
+        mensaje: `${mensaje}. Código de seguimiento: ${envio.trackingCode}`,
+        destinatario,
+        enviadaTiempoReal: clienteConectado,
+        metadata: {
+          estadoAnterior,
+          estadoNuevo: envio.estado,
+          trackingCode: envio.trackingCode,
+          fechaCambio: new Date(),
+        },
+      });
+
+      console.log('✅ Notificación guardada en BD:', notificacion.id);
+
+      // 2. Enviar notificación en tiempo real por WebSocket (si el cliente está conectado)
+      if (envio.clienteId && clienteConectado) {
+        this.notificacionesGateway.notificarCambioEstadoEnvio(envio.clienteId, {
+          id: notificacion.id,
+          envioId: envio.id,
+          trackingCode: envio.trackingCode,
+          estado: envio.estado,
+          estadoAnterior,
+          titulo: 'Estado de envío actualizado',
+          mensaje,
+          tipo: notificacion.tipo,
+          fechaCreacion: notificacion.fechaCreacion,
+        });
+        
+        console.log('📢 Notificación enviada por WebSocket al cliente:', envio.clienteId);
+      } else if (envio.clienteId) {
+        console.log('⚠️ Cliente no conectado, notificación guardada solo en BD');
+      }
+    } catch (error) {
+      console.error('❌ Error al enviar notificación:', error);
+      // No lanzar error para no interrumpir la actualización del envío
+    }
   }
 
   async remove(id: number): Promise<void> {

@@ -1,13 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { EnviosController } from './Envios/Envios.controller';
-import { EnviosService } from './Envios/Envios.service';
-import { Envios } from './Envios/Envios.entity';
-import { Direcciones } from './Direcciones/Direcciones.entity';
-import { Paquetes } from './Paquetes/Paquetes.entity';
-import { DireccionesService } from './Direcciones/Direcciones.service';
-import { PaquetesService } from './Paquetes/Paquetes.service';
+import { NotificacionesModule } from './Notificaciones/Notificaciones.module';
+import { EnviosModule } from './Envios/Envios.module';
 
 @Module({
   imports: [
@@ -15,8 +10,7 @@ import { PaquetesService } from './Paquetes/Paquetes.service';
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
     }),
-    TypeOrmModule.forFeature([Envios, Direcciones, Paquetes]),
-
+    
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -34,8 +28,12 @@ import { PaquetesService } from './Paquetes/Paquetes.service';
         timezone: '+00:00',
       }),
     }),
+
+    // Módulos de la aplicación
+    NotificacionesModule,
+    EnviosModule,
   ],
-  controllers: [EnviosController],
-  providers: [EnviosService, DireccionesService, PaquetesService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

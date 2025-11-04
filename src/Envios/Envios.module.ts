@@ -7,10 +7,12 @@ import { EnviosService } from './Envios.service';
 import { EnviosController } from './Envios.controller';
 import { DireccionesService } from '../Direcciones/Direcciones.service';
 import { PaquetesService } from '../Paquetes/Paquetes.service';
+import { NotificacionesModule } from '../Notificaciones/Notificaciones.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Envios, Direcciones, Paquetes])
+    TypeOrmModule.forFeature([Envios, Direcciones, Paquetes]),
+    NotificacionesModule, // Importar módulo de notificaciones
   ],
   providers: [EnviosService, DireccionesService, PaquetesService],
   controllers: [EnviosController],
